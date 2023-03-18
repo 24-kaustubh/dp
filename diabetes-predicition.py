@@ -2,13 +2,32 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import plotly.figure_factory as ff
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 
-df = pd.read_csv(r'C:\Users\kaust\.streamlit\diabetes-predicition.py')
+df = pd.read_csv(r'C:\Users\saahi\.streamlit\diabetes.csv')
+page_bg_image = """
+<style>
+[data-testid="stAppViewContainer"]{
+  background-image :url("https://www.linkpicture.com/q/Untitled-design-2_80.png");
+  background-size: cover;
+  [theme]
+backgroundColor="#408e9d"
+secondaryBackgroundColor="#f2d8b3"
+textColor="#000000"
+font="serif"
+}
+</style>
+"""
+st.markdown(page_bg_image,unsafe_allow_html=True)
+
+st.write('')
 st.title('Diabetes Prediction using ML')
+st.write('PBL Mini Project Group No.6')
 st.subheader('Training Data Stats')
 st.write(df.describe())
 st.sidebar.subheader('Made By')
