@@ -1,4 +1,4 @@
-#PBL SEM IV - Diabetes prediction using Machine Learning.
+# IMPORT STATEMENTS
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -9,35 +9,20 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 import seaborn as sns
 
-df = pd.read_csv(r'C:\Users\saahi\.streamlit\diabetes.csv')
-page_bg_image = """
-<style>
-[data-testid="stAppViewContainer"]{
-  background-image :url("https://www.linkpicture.com/q/Untitled-design-2_80.png");
-  background-size: cover;
-  [theme]
-backgroundColor="#408e9d"
-secondaryBackgroundColor="#f2d8b3"
-textColor="#000000"
-font="serif"
-}
-</style>
-"""
-st.markdown(page_bg_image,unsafe_allow_html=True)
+df = pd.read_csv(r'  ')
 
-st.write('')
+# HEADINGS
 st.title('Diabetes Prediction using ML')
-st.write('PBL Mini Project Group No.6')
 st.subheader('Training Data Stats')
 st.write(df.describe())
-st.sidebar.subheader('Made By')
-st.sidebar.write('Saahil Barve,Harshit Gala,Saravan Kota')
 st.sidebar.title('Input your data by using the sliders below')
 
+# X AND Y DATA
 x = df.drop(['Outcome'], axis = 1)
 y = df.iloc[:, -1]
 x_train, x_test, y_train, y_test = train_test_split(x,y, test_size = 0.2, random_state = 0)
 
+# FUNCTION
 def user_report():
   pregnancies = st.sidebar.slider('Pregnancies', 0,17, 3 )
   glucose = st.sidebar.slider('Glucose', 0,200, 120 )
@@ -61,40 +46,25 @@ def user_report():
   report_data = pd.DataFrame(user_report_data, index=[0])
   return report_data
 
+# PATIENT DATA
 user_data = user_report()
 st.subheader('Patient Data')
 st.write(user_data)
 
+# MACHINE LEARNING MODEL
 rf  = RandomForestClassifier()
 rf.fit(x_train, y_train)
 user_result = rf.predict(user_data)
 
-st.title('Visualised Patient Report')
 
-if user_result[0]==0:
-  color = 'blue'
-else:
-  color = 'red'
-
+# OUTPUT
 st.subheader('Your Report: ')
 output=''
 if user_result[0]==0:
   output ='You are not Diabetic'
-  st.title(output)
-  'Prevention is better than Cure\n'
-  '1.Eat Healthy Food\n'
-  '2.Quit Tobacoo\n'
-  '3.Avoid unhealthy Fats\n'
-  '4.Less alcohol Consumption'
 else:
   output = 'You are Diabetic'
-  st.title(output)
-  '1.Lose extra weight\n'
-  '2.Be more physically active\n'
-  '3.Eat healthy plant foods\n' 
-  '4.Eat healthy fats\n'
-  '5.Skip fad diets and make healthier choices\n'     
-  'Consult a nearby Doctor for further treatment\n'  
 
+#  ACCURACY
 st.subheader('Accuracy: ')
 st.write(str(accuracy_score(y_test, rf.predict(x_test))*100)+'%')
