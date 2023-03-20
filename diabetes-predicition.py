@@ -56,15 +56,6 @@ rf  = RandomForestClassifier()
 rf.fit(x_train, y_train)
 user_result = rf.predict(user_data)
 
-# Age vs Glucose
-st.header('Glucose Value Graph (Others vs Yours)')
-fig_glucose = plt.figure()
-ax3 = sns.scatterplot(x = 'Age', y = 'Glucose', data = df, hue = 'Outcome' , palette='magma')
-ax4 = sns.scatterplot(x = user_data['age'], y = user_data['glucose'], s = 150, color = color)
-plt.xticks(np.arange(10,100,5))
-plt.yticks(np.arange(0,220,10))
-plt.title('0 - Healthy & 1 - Unhealthy')
-st.pyplot(fig_glucose)
 
 # OUTPUT
 st.subheader('Your Report: ')
